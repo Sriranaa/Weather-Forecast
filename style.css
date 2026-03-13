@@ -1,0 +1,292 @@
+/* =========================================
+   BASE STYLES & RESETS
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif; /* Set modern global typography */
+}
+
+/* Page background configuration */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Elegant purple-blue gradient background */
+    color: #333;
+    padding: 1rem;
+}
+
+/* =========================================
+   MAIN WIDGET CONTAINER
+   ========================================= */
+.weather-container {
+    background: rgba(255, 255, 255, 0.95); /* Slight transparency for a glossy feel */
+    padding: 2.5rem;
+    border-radius: 24px; /* Distinct rounded corners */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Soft elevated shadow */
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Glassmorphism background blur */
+    transition: all 0.3s ease;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+    font-weight: 700;
+}
+
+/* =========================================
+   SEARCH & AUTOCOMPLETE SYSTEM
+   ========================================= */
+/* Wrapper to correctly position absolute dropdown elements relatively */
+.search-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* Main search bar shape and layout */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #edf2f7; /* Off-white container box */
+    border-radius: 50px; /* Pill-shaped */
+    padding: 0.5rem 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Add a subtle glowing ring when the user focuses on the input */
+.search-box:focus-within {
+    box-shadow: 0 0 0 2px #667eea;
+    background: #fff;
+}
+
+.search-box input {
+    flex: 1; /* Take up maximum available space */
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    color: #4a5568;
+}
+
+/* Search button styling and behavior */
+.search-box button {
+    background: #667eea;
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%; /* Perfect circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Scaled hover micro-animation */
+.search-box button:hover {
+    background: #5a67d8;
+    transform: scale(1.05);
+}
+
+.search-box button:active {
+    transform: scale(0.95);
+}
+
+/* Styles specifically for the city autocomplete dropdown window */
+.suggestions-list {
+    position: absolute;
+    top: 100%; /* Position directly under the search bar */
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    list-style: none; /* Strip standard bullet points */
+    z-index: 10; /* Make sure dropdown overlaps other items below */
+    margin-top: 8px;
+    max-height: 250px;
+    overflow-y: auto; /* Required for scrolling long lists */
+    text-align: left;
+}
+
+.suggestions-list li {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.suggestions-list li:last-child {
+    border-bottom: none;
+}
+
+/* Highlight search list elements on hover */
+.suggestions-list li:hover {
+    background: #f7fafc;
+    color: #2b6cb0;
+}
+
+.city-name-suggestion {
+    font-weight: 500;
+}
+
+.city-state-suggestion {
+    font-size: 0.85em;
+    color: #718096;
+    margin-left: 0.5rem;
+}
+
+/* =========================================
+   UTILITIES & FEEDBACK MESSAGES
+   ========================================= */
+/* Reusable utility class for hiding elements from logic dynamically */
+.hidden {
+    display: none !important;
+}
+
+/* Flashy red warning schema for error responses */
+.error {
+    color: #e53e3e;
+    background: #fff5f5;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Subtle styling for active loading text */
+#loading {
+    color: #718096;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* =========================================
+   WEATHER DATA DISPLAY 
+   ========================================= */
+/* Fade in micro-animation when the card becomes visible */
+.weather-card {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#city-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+/* Positioning rules to place Icon and Temp next to each other */
+.weather-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+#weather-icon {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.temperature {
+    display: flex;
+    align-items: flex-start;
+    line-height: 1;
+    color: #1a202c;
+}
+
+#temp {
+    font-size: 4.5rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.celsius {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0.8rem;
+    color: #4a5568;
+}
+
+.weather-desc {
+    font-size: 1.3rem;
+    text-transform: capitalize; /* Ensure first letters are caps, e.g., 'Broken Clouds' */
+    color: #4a5568;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+/* Data blocks structure: Humidity and Wind */
+.weather-details {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.detail-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.detail-box svg {
+    color: #667eea;
+}
+
+.detail-title {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-bottom: 0.2rem;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* =========================================
+   RESPONSIVENESS / MEDIA QUERIES
+   ========================================= */
+@media (max-width: 480px) {
+    .weather-container {
+        padding: 1.5rem; /* Shrink padding on smaller screens */
+    }
+    #temp {
+        font-size: 3.5rem; /* Shrink heavy font sizing */
+    }
+    #weather-icon {
+        width: 100px;
+        height: 100px;
+    }
+    /* Stack humidity and wind options vertically for smaller height phones */
+    .weather-details {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+    .detail-box {
+        justify-content: center;
+    }
+}

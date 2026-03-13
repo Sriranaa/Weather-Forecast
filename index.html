@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Ensures proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Import 'Outfit' font family from Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main widget container for the weather application -->
+    <div class="weather-container">
+        <h1 class="app-title">Weather Forecast</h1>
+        
+        <!-- Search bar layout containing input and button -->
+        <div class="search-container">
+            <div class="search-box">
+                <!-- User input field for city search -->
+                <input type="text" id="city-input" placeholder="Enter city name..." autocomplete="off">
+                <button id="search-btn" aria-label="Search">
+                    <!-- SVG icon for the search button -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+            <!-- Dropdown list to show autocomplete suggestions dynamically -->
+            <ul id="suggestions-list" class="suggestions-list hidden"></ul>
+        </div>
+        
+        <!-- UI elements for loading and error states (hidden by default) -->
+        <div id="loading" class="hidden">Fetching weather data...</div>
+        <div id="error-message" class="error hidden"></div>
+
+        <!-- Weather result card to display data dynamically upon successful API response -->
+        <div id="weather-card" class="weather-card hidden">
+            <h2 id="city-name">--</h2>
+            
+            <!-- Section containing icon and primary temperature -->
+            <div class="weather-main">
+                <img id="weather-icon" src="" alt="Weather Icon" crossorigin="anonymous">
+                <div class="temperature">
+                    <span id="temp">--</span><span class="celsius">°C</span>
+                </div>
+            </div>
+            
+            <!-- Textual description of weather condition (e.g., 'light rain') -->
+            <p id="weather-desc" class="weather-desc">--</p>
+            
+            <!-- Additional weather metrics section -->
+            <div class="weather-details">
+                <!-- Humidity box -->
+                <div class="detail-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                    <div>
+                        <p class="detail-title">Humidity</p>
+                        <p id="humidity" class="detail-value">--%</p>
+                    </div>
+                </div>
+                <!-- Wind speed box -->
+                <div class="detail-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>
+                    <div>
+                        <p class="detail-title">Wind Speed</p>
+                        <p id="wind-speed" class="detail-value">-- m/s</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
